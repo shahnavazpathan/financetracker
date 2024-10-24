@@ -1,42 +1,38 @@
 import nodemailer from "nodemailer";
 import databaseConnection from "../dbCredentials/db.connection.js";
 
-const sendMail = async (host,receiverEmail,userId) => {
-
+const sendMail = async (host, receiverEmail, userId) => {
   try {
-   
     var protocol;
-     if (!host.includes('localhost')){
-       protocol = 'https';
-       
-        
-     } else {
-      protocol = 'http';
-     }
+    if (!host.includes("localhost")) {
+      protocol = "https";
+    } else {
+      protocol = "http";
+    }
     const otp = Math.floor(100000 + Math.random() * 900000);
 
-         await databaseConnection.query(
-            "insert into otp_table values(?,?)",
-            [userId,otp]
-         );
+    await databaseConnection.query("insert into otp_table values(?,?)", [
+      userId,
+      otp,
+    ]);
 
-   let verificationLink = `${protocol}://${host}/api/auth/verify?otp=${otp}`;
+    let verificationLink = `${protocol}://${host}/api/auth/verify?otp=${otp}`;
 
     const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_ADDRESS,
-      pass: process.env.EMAIL_PASS,
-    },
-    port: 465,
-  });
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_ADDRESS,
+        pass: process.env.EMAIL_PASS,
+      },
+      port: 465,
+    });
 
-  const mailOptions = {
-    from: process.env.EMAIL_ADDRESS,
-    to: receiverEmail,
-    subject: 'Verify Your Email - FinanceTracker',
-    text: `Please verify your email by clicking the following link: ${verificationLink}`,
-    html: `
+    const mailOptions = {
+      from: process.env.EMAIL_ADDRESS,
+      to: receiverEmail,
+      subject: "Verify Your Email - FinanceTracker",
+      text: `Please verify your email by clicking the following link: ${verificationLink}`,
+      html: `
       <!DOCTYPE html>
       <html lang="en">
       <head>
@@ -122,21 +118,17 @@ const sendMail = async (host,receiverEmail,userId) => {
           </div>
       </body>
       </html>
-    `
-  };
-  
-  await transporter.sendMail(mailOptions)
-    
-  return true;
-  
+    `,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    return true;
   } catch (error) {
     console.log(error);
-    
-    return false;
-    
-  }
 
-  
+    return false;
+  }
 };
 
 export default sendMail;

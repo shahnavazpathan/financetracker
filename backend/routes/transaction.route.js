@@ -20,12 +20,12 @@ route.post("/add/expense", addExpense);
 
 route.get("/get/income", getIncome);
 route.get("/get/expense", getExpense);
-route.get("/get/balance",balanceRoute);
+route.get("/get/balance", balanceRoute);
 
 route.put("/edit/income/:dataId", editIncome);
 route.put("/edit/expense/:dataId", editExpense);
 
-route.delete("/delete/income/:dataId",deleteIncome);
-route.delete("/delete/expense/:dataId",deleteExpense);
+route.delete("/delete/income/:dataId", deleteIncome);
+route.delete("/delete/expense/:dataId", deleteExpense);
 
 export default route;

@@ -4,8 +4,7 @@ const deleteIncome = async (req, res) => {
   try {
     const { userId } = req;
     if (!userId) {
-    return res.status(401).json({ message: "Unauthorized User" });
-
+      return res.status(401).json({ message: "Unauthorized User" });
     }
     let dataId = req.params.dataId;
     if (!dataId) {
@@ -14,9 +13,9 @@ const deleteIncome = async (req, res) => {
         .json({ message: "Please provide dataId in parameter!" });
     }
     dataId = Number(dataId);
-    console.log(userId,dataId);
+    console.log(userId, dataId);
 
-   await databaseConnection.query(
+    await databaseConnection.query(
       "delete from data where userId = ? and dataId = ?",
       [userId, dataId]
     );
@@ -26,7 +25,7 @@ const deleteIncome = async (req, res) => {
       .json({ message: "Income has been deleted successfully!" });
   } catch (error) {
     console.log(error);
-    
+
     return res.status(500).json({ message: "Internal server error" });
   }
 };

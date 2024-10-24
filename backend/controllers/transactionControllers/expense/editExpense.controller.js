@@ -2,7 +2,7 @@ import databaseConnection from "../../../dbCredentials/db.connection.js";
 
 const editExpense = async (req, res) => {
   try {
-    let allowedFields = ['expense', 'description', 'category', 'account'];
+    let allowedFields = ["expense", "description", "category", "account"];
 
     const { userId } = req;
     if (!userId) {
@@ -25,19 +25,18 @@ const editExpense = async (req, res) => {
         .status(400)
         .json({ message: "You are going against the schema!" });
     }
-   
-    let arr = Object.entries(req.body)
-    .map(([key,value]) => {if (typeof value !== 'number') return `${key} = '${value}'`;
+
+    let arr = Object.entries(req.body).map(([key, value]) => {
+      if (typeof value !== "number") return `${key} = '${value}'`;
       else return `${key} = ${value}`;
     });
-    
-   await databaseConnection.query(
-      `update data set ${arr} where dataId = ?`,
-      [dataId]
-    );
-    return res.status(200).json({message : "Expense has been edited successfully!"})
-    
 
+    await databaseConnection.query(`update data set ${arr} where dataId = ?`, [
+      dataId,
+    ]);
+    return res
+      .status(200)
+      .json({ message: "Expense has been edited successfully!" });
   } catch (error) {
     console.log(error);
 

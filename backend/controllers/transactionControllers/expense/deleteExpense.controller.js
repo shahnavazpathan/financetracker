@@ -13,14 +13,14 @@ const deleteExpense = async (req, res) => {
         .json({ message: "Please provide dataId in parameter!" });
     }
     dataId = Number(dataId);
-    
-   const [result] = await databaseConnection.query(
+
+    const [result] = await databaseConnection.query(
       "delete from data where userId = ? and dataId = ?",
       [userId, dataId]
     );
 
     console.log(result);
-    
+
     return res
       .status(200)
       .json({ message: "Expense has been deleted successfully!" });

@@ -25,11 +25,11 @@ const signIn = async (req, res) => {
         .status(400)
         .json({ message: "username or password is incorrect" });
     }
-    generateTokenAndSetCookie(userId,res);
+    generateTokenAndSetCookie(userId, res);
 
-    res.status(200).json({ message: "logged in", userId, username });
+    return res.status(200).json({ message: "logged in", userId, username });
   } catch (err) {
-    return res.status(500).json({message: "Internal server error"});
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 

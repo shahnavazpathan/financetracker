@@ -12,10 +12,10 @@ const getIncome = async (req, res) => {
       [userId]
     );
 
-    res.send(getIncomeQuery);
+    return res.status(200).json({ data: getIncomeQuery });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 export default getIncome;

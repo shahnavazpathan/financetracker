@@ -11,7 +11,7 @@ const getExpense = async (req, res) => {
       [userId]
     );
 
-    res.send(getExpenseQuery);
+    return res.status(200).json({ data: getExpenseQuery });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }

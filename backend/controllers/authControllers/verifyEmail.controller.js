@@ -30,8 +30,8 @@ const verifyEmail = async (req, res) => {
       "update users set isVerified = true where userId = ?",
       [decoded.userId]
     );
-          
-    res.send({ message: "Email verfied successfully!" });
+
+    return res.status(200).json({ message: "Email verfied successfully!" });
   } catch (error) {
     console.log(error);
     return res.status(401).json({ message: "Unauthorized User" });
