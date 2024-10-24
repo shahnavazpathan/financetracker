@@ -10,6 +10,9 @@ import editIncome from "../controllers/transactionControllers/income/editIncome.
 import editExpense from "../controllers/transactionControllers/expense/editExpense.controller.js";
 import balanceRoute from "./balance.route.js";
 
+import deleteIncome from "../controllers/transactionControllers/income/deleteIncome.controller.js";
+import deleteExpense from "../controllers/transactionControllers/expense/deleteExpense.controller.js";
+
 const route = express.Router();
 
 route.post("/add/income", addIncome);
@@ -22,5 +25,7 @@ route.get("/get/balance",balanceRoute);
 route.put("/edit/income/:dataId", editIncome);
 route.put("/edit/expense/:dataId", editExpense);
 
+route.delete("/delete/income/:dataId",deleteIncome);
+route.delete("/delete/expense/:dataId",deleteExpense);
 
 export default route;

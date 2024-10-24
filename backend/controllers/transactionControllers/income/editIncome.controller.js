@@ -7,7 +7,9 @@ const editIncome = async (req,res) => {
       let allowedFields = ['income', 'description', 'category', 'account'];
 
       const { userId } = req;
-  
+      if (!userId) {
+        return res.status(401).json({ message: "Unauthorized User" });
+      }
       let dataId = req.params.dataId;
       if (!dataId) {
         return res
@@ -35,7 +37,7 @@ const editIncome = async (req,res) => {
         `update data set ${arr} where dataId = ?`,
         [dataId]
       );
-      return res.status(200).json({message : "income edited successfully!"});
+      return res.status(200).json({message : "Income has been edited successfully!"});
       
   
       } catch (error) {

@@ -10,7 +10,9 @@ const sendMail = async (host,receiverEmail,userId) => {
        protocol = 'https';
        
         
-     };
+     } else {
+      protocol = 'http';
+     }
     const otp = Math.floor(100000 + Math.random() * 900000);
 
          await databaseConnection.query(

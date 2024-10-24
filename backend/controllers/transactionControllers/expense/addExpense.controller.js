@@ -4,9 +4,14 @@ const addExpense = async (req,res) => {
   try {
     
     const {userId} = req;
-    
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized User" });
+    }
     let {expense,category,description,account} = req.body;
-    
+    if (!expense) {
+      return res.status(400).json({ message: "Expense value is complusory, others are optional!" });
+
+    }
     account = account || 'cash';
 
     const addExpenseQuery = databaseConnection.query(
@@ -14,7 +19,7 @@ const addExpense = async (req,res) => {
       ,[userId,expense,category,description,account]
     )
     
-    res.send({message: "data entered suceesfully"});
+    res.send({message: "Expense has been inserted successfully!"});
 
 
   } catch (error) {

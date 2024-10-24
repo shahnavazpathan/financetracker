@@ -38,7 +38,7 @@ const signUp =  async (req, res) => {
 
       const [existCheck] = await databaseConnection.query(
         `select userName from users where userName = ?`,
-        [userName]
+        [username]
       );
   
       if (existCheck.length > 0) {
@@ -50,7 +50,7 @@ const signUp =  async (req, res) => {
   
       const [insertQuery] = await databaseConnection.query(
         "INSERT INTO users (userName,password,email,isVerified) values (?, ?, ?,false)",
-        [userName, hashedPassword, hashedEmail]
+        [username, hashedPassword, hashedEmail]
       );
       let userId = insertQuery.insertId;
 

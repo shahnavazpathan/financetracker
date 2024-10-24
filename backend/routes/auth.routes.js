@@ -9,7 +9,7 @@ const route = express.Router();
 
 route.post("/signUp", signUp);
 
-route.get("/verify",verifyEmail)
+route.post("/verify",verifyEmail)
 
 
 route.post("/signIn", signIn);
