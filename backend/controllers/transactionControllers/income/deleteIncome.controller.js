@@ -13,13 +13,18 @@ const deleteIncome = async (req, res) => {
         .json({ message: "Please provide dataId in parameter!" });
     }
     dataId = Number(dataId);
-    console.log(userId, dataId);
+    
 
-    await databaseConnection.query(
+    const result = await databaseConnection.query(
       "delete from data where userId = ? and dataId = ?",
       [userId, dataId]
-    );
-
+    );  
+    if(result[0].affectedRows <= 0) {
+      return res
+        .status(400)
+        .json({ message: "There is no income with this dataId!" });
+    }
+    
     return res
       .status(200)
       .json({ message: "Income has been deleted successfully!" });

@@ -18,9 +18,13 @@ const deleteExpense = async (req, res) => {
       "delete from data where userId = ? and dataId = ?",
       [userId, dataId]
     );
-
-    console.log(result);
-
+    if(result[0].affectedRows <= 0) {
+      return res
+        .status(400)
+        .json({ message: "There is no expense with this dataId!" });
+    }
+    
+    
     return res
       .status(200)
       .json({ message: "Expense has been deleted successfully!" });

@@ -10,7 +10,8 @@ const signUp = async (req, res) => {
     if (!username || !password || !email || !confirmPassword) {
       return res.status(400).json({ message: "All fields are required" });
     }
-
+    username = username.trim();
+    email = email.trim();
     if (
       username.includes(" ") ||
       password.includes(" ") ||
@@ -43,8 +44,14 @@ const signUp = async (req, res) => {
         });
     }
 
-    username = username.trim();
-    email = email.trim();
+    
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailPattern.test(email)) {
+      return res
+        .status(400)
+        .json({ message: "Please enter valid email address!" });
+    }
 
     const [existCheck] = await databaseConnection.query(
       `select userName from users where userName = ?`,
